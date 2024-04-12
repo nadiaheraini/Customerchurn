@@ -1,8 +1,6 @@
-##############################################
 ### Program Klasifikasi Customer Churn  ######
 ### Created By Nadia Ananda Heraini ##########
 ### Metode Klasifikasi: Naive Bayes ##########
-##############################################
 # Setting lokasi data
 setwd("D:/FDC/")
 
@@ -16,9 +14,7 @@ library(summarytools)
 library(dplyr)
 library(ROCR)
 
-###################
 # Aktifkan function
-###################
 isi_data_missing=function(data_df){
   data1=data_df
   lstcont = c()
@@ -35,8 +31,6 @@ isi_data_missing=function(data_df){
   }
   return(data1)
 }
-#####################
-
 # Import dataset dari format CSV:  
 data_training=read.csv("findata_challenge_train.csv")
 data_testing=read.csv("findata_challenge_test.csv")
@@ -73,9 +67,7 @@ data_testing=isi_data_missing(data_testing)
 ## konversi struktur data pada y menjadi factor untuk membuat model
 data_training$y= as.factor(data_training$y)
 
-###########################
 ### Model Fitting #########
-###########################
 # Membuat model dengan data_training
 # metode klasifikasi yang digunakan menggunakan naiveBayes
 model=naiveBayes(x=data_training %>% select(-y),
@@ -93,17 +85,14 @@ write.csv(hasil_prediksi_data_testing,"nadia_ananda_heraini-submission.csv")
 # Proses penggabungan data_testing setelah mendapatkan y predicted
 gabung_data_testing <- data.frame(data_testing,hasil_prediksi_data_testing)
 
-##################################################
 ### Evaluasi Model untuk melihat performance model
 ### 1. Hitung prediksi (accuracy model) ##########
 ### 2. Hitung nilai ROC/AUC ######################
-##################################################
 # persiapan data
 data_test=gabung_data_testing # data_test, data baru (hasil penggabungan data)
 levels(data_test$prediksi_data_testing) # cek level
-####################
+
 # 1. Hitung Accuracy
-####################
 # hitung prediski
 naive_prob <-predict(model,data_test,type = "raw")
 # proses
